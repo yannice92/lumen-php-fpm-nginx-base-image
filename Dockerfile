@@ -19,3 +19,4 @@ RUN apt-get update && apt-get install -y lsb-release \
       && apt-get remove -y autoconf automake libtool nasm make pkg-config libz-dev build-essential g++ \
       && apt-get clean; rm -rf /tmp/* /var/tmp/* /usr/share/doc/* ~/.composer \
     && apt-get autoremove -y
+RUN apt-get install vim
