@@ -1,21 +1,14 @@
-FROM php:7.4-fpm
+FROM alpine:3.10
+LABEL Maintainer="Fernando Yannice <yannice92@gmail.com>" \
+      Description="Lightweight pimcore or lumen container with Nginx 1.16 & PHP-FPM 7.3 based on Alpine Linux."
 
 ENV TZ=Asia/Jakarta
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apt-get update && apt-get install -y lsb-release \
-    && apt-get update && apt-get install -y --no-install-recommends \
-      autoconf automake libtool nasm make pkg-config openssl libz-dev build-essential g++ ca-certificates \
-      zlib1g-dev libicu-dev libbz2-dev libjpeg-dev libvpx-dev libxpm-dev libpng-dev libfreetype6-dev libc-client-dev \
-      libkrb5-dev libxml2-dev libxslt1.1 libxslt1-dev libzip-dev locales locales-all \
-      html2text pngcrush jpegoptim exiftool poppler-utils git wget nginx curl supervisor procps \
-    \
-    && docker-php-ext-install intl mysqli bcmath gd bz2 soap xmlrpc xsl pdo_mysql exif zip opcache \
-    && pecl install redis && docker-php-ext-enable redis \
-    && cd ~ \
-    \
+
+# Install packages
+RUN apk --no-cache add tzdata php7 php7-fpm php7-mysqli php7-json php7-openssl php7-curl \
+    php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype php7-session \
+    php7-mbstring php7-gd php7-redis php7-opcache php7-iconv php7-zip php7-xmlwriter php7-pdo php7-soap php7-pdo_mysql php7-tokenizer php7-fileinfo php7-simplexml php7-exif nginx supervisor curl \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative \
-    && apt-get autoremove -y \
-      && apt-get remove -y autoconf automake libtool nasm make pkg-config libz-dev build-essential g++ \
-      && apt-get clean; rm -rf /tmp/* /var/tmp/* /usr/share/doc/* ~/.composer \
-    && apt-get autoremove -y
+    && rm -rf /tmp/* /var/tmp/* /usr/share/doc/* ~/.composer
