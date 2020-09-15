@@ -8,7 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN echo -e "http://nl.alpinelinux.org/alpine/v3.10/main\nhttp://nl.alpinelinux.org/alpine/v3.10/community" > /etc/apk/repositories
 
 # Install packages busybox-extras vim for dev
-RUN apk --no-cache add busybox-extras vim mysql-client \
+RUN apk --no-cache add busybox-extras vim mysql-client lftp \
     supervisor openssl tzdata php7 php7-fpm php7-mysqli php7-json php7-openssl php7-curl php7-ftp \
     php7-zlib php7-xml php7-phar php7-intl php7-dom php7-xmlreader php7-ctype php7-session \
     php7-mbstring php7-gd php7-redis php7-opcache php7-iconv php7-zip php7-xmlwriter php7-pdo \
