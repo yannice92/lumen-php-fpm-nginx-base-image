@@ -1,6 +1,7 @@
 # lumen-php-fpm-nginx-base-image
 
 php-fpm pool location : /etc/php8/php-fpm.d/www.conf
+
 php8 conf.d location : /etc/php8/conf.d/
 
 running php-fpm : php-fpm8 -F
