@@ -13,7 +13,7 @@ RUN apk --no-cache add busybox-extras vim mysql-client lftp gettext supervisor o
 RUN apk --no-cache add php8 php8-cli php8-fpm php8-mysqli php8-json php8-openssl php8-curl php8-ftp \
     php8-zlib php8-xml php8-phar php8-intl php8-dom php8-xmlreader php8-ctype php8-session \
     php8-mbstring php8-gd php8-redis php8-opcache php8-iconv php8-zip php8-xmlwriter php8-pdo \
-    php8-soap php8-pdo_mysql php8-tokenizer php8-fileinfo php8-simplexml php8-exif
+    php8-soap php8-pdo_mysql php8-tokenizer php8-fileinfo php8-simplexml php8-exif php8-sodium
 RUN ln -s /usr/bin/php8 /usr/bin/php
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer --2 \
