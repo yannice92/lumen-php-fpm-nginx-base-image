@@ -21,7 +21,7 @@ RUN apk --no-cache add busybox-extras vim mysql-client lftp gettext\
     
 RUN apk add --no-cache --virtual $PHPIZE_DEPS && pecl install mongodb \
     && echo "extension=mongodb.so" > /etc/php7/conf.d/01_mongodb.ini \
-    && rm -rf /tmp/* /usr/share/php7
+    && rm -rf /tmp/* /usr/share/php7 \
     && apk del $PHPIZE_DEPS
 
 #for crontab
