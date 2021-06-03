@@ -19,7 +19,7 @@ RUN apk --no-cache add busybox-extras vim mysql-client lftp gettext\
     && composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative \
     && rm -rf /tmp/* /var/tmp/* /usr/share/doc/* ~/.composer
     
-RUN apk add --no-cache --virtual $PHPIZE_DEPS && pecl install mongodb \
+RUN apk add --no-cache --virtual $PHPIZE_DEPS && php7-pear && pecl install mongodb \
     && echo "extension=mongodb.so" > /etc/php7/conf.d/01_mongodb.ini \
     && rm -rf /tmp/* /usr/share/php7 \
     && apk del $PHPIZE_DEPS
