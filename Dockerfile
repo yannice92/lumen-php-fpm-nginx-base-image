@@ -3,6 +3,8 @@ LABEL Maintainer="Fernando Yannice <yannice92@gmail.com>" \
       Description="Lightweight pimcore or lumen container with Nginx 1.16 & PHP-FPM 7.3 based on Alpine Linux."
 
 ENV TZ=Asia/Jakarta
+ENV PHPIZE_DEPS=build-base build-dependencies php7-dev autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c
+
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN echo -e "http://nl.alpinelinux.org/alpine/v3.10/main\nhttp://nl.alpinelinux.org/alpine/v3.10/community" > /etc/apk/repositories
@@ -16,6 +18,11 @@ RUN apk --no-cache add busybox-extras vim mysql-client lftp gettext\
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --1\
     && composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative \
     && rm -rf /tmp/* /var/tmp/* /usr/share/doc/* ~/.composer
+    
+RUN apk add --no-cache --virtual $PHPIZE_DEPS && pecl install mongodb \
+    && echo "extension=mongodb.so" > /etc/php7/conf.d/01_mongodb.ini \
+    && rm -rf /tmp/* /usr/share/php7
+    && apk del $PHPIZE_DEPS
 
 #for crontab
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \
