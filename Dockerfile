@@ -3,7 +3,7 @@ LABEL Maintainer="Fernando Yannice <yannice92@gmail.com>" \
       Description="Lightweight pimcore or lumen container with Nginx 1.16 & PHP-FPM 7.3 based on Alpine Linux."
 
 ENV TZ=Asia/Jakarta
-ENV PHPIZE_DEPS="php7-dev autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c"
+ENV PHPIZE_DEPS="php7-dev autoconf dpkg-dev dpkg file g++ gcc libc-dev make pkgconf re2c openssl-dev"
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
